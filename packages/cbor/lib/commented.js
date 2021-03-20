@@ -5,7 +5,6 @@ const utils = require('./utils')
 const Decoder = require('./decoder')
 const NoFilter = require('nofilter')
 const { MT, NUMBYTES, SYMS } = require('./constants')
-const { Buffer } = require('buffer')
 
 function plural(c) {
   if (c > 1) {
@@ -339,7 +338,7 @@ class Commented extends stream.Transform {
     const str = utils.cborValueToString(val, -Infinity)
 
     if ((typeof val === 'string') ||
-        (Buffer.isBuffer(val))) {
+        (val instanceof Uint8Array)) {
       if (val.length > 0) {
         this.push(str)
         this.push('\n')
