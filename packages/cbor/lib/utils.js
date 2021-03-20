@@ -6,21 +6,11 @@ const stream = require('stream')
 const TextDecoder = require('@cto.af/textdecoder')
 const constants = require('./constants')
 const { NUMBYTES, SHIFT32, BI, SYMS } = constants
+const {inspect} = require('./inspect');
 
 const MAX_SAFE_HIGH = 0x1fffff
 
-let util = null
-try {
-  util = require('util')
-} catch (ignored) {
-  // polyfill node-inspect-extracted in, if you're on the web
-
-  // I don't think getting here is possible in non-webpack node.  The normal
-  // methods of causing require('util') to fail don't work with
-  // internal packages.
-  /* istanbul ignore next */
-  util = require('node-inspect-extracted')
-}
+let util = {inspect};
 exports.inspect = util.inspect
 
 /**
